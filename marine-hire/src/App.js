@@ -1,11 +1,17 @@
-
-import './App.css';
+import React from "react";
+import { Route, Routes } from "react-router-dom";
+import "./App.css";
+import Landing from "./Pages/Landing/Landing";
+import Registration from "./Pages/Registration/Registration";
+import Login from "./Pages/Login/Login";
 
 function App() {
   return (
-    <div className="App">
-     <h1>Hello Jobs</h1>
-    </div>
+    <Routes>
+      <Route exact path="/" element={<Landing />} />
+      <Route path="/register" element={<Registration />} />
+      <Route path="/login" element={<Login />} />
+    </Routes>
   );
 }
 

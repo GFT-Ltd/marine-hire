@@ -1,0 +1,46 @@
+.login {
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+  background-color: #e6e6e9;
+  height: 100vh;
+  display: flex;
+  /* text-align: center; */
+  justify-content: center;
+}
+
+.form-div {
+  width: 25rem;
+  height: fit-content;
+  background-color: #fff;
+  margin: 2%;
+  border-radius: 1rem;
+  padding: 2%;
+}
+
+.form-div h3 {
+  text-align: center;
+}
+
+.form-tag {
+  margin-top: 5%;
+}
+
+.form-button-div {
+  padding-top: 3%;
+  text-align: center;
+}
+
+.login-info {
+  display: flex;
+  padding-top: 6%;
+}
+
+.login-link {
+  text-decoration: none;
+}
+
+.form-check {
+  padding-top: 2%;
+  padding-bottom: 2%;
+}
