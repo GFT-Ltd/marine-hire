@@ -14,6 +14,10 @@ function Landing() {
     navigate("/register");
   };
 
+  const postAndApplyButtonClick = () => {
+    navigate("/login");
+  };
+
   return (
     <div className="landing-page">
       <Navbar />
@@ -54,7 +58,12 @@ function Landing() {
                 around the world.
               </p>
               <br />
-              <button className="button-4">Post Job</button>
+              <button
+                className="button-4"
+                onClick={() => postAndApplyButtonClick()}
+              >
+                Post Job
+              </button>
             </div>
           </div>
         </div>
@@ -69,7 +78,12 @@ function Landing() {
                 directly with hiring companies.
               </p>
               <br />
-              <button className="button-4">Apply on Job</button>
+              <button
+                className="button-4"
+                onClick={() => postAndApplyButtonClick()}
+              >
+                Apply on Job
+              </button>
             </div>
           </div>
           <div className="col-lg-6 col-md-6 col-12 image-section">
