@@ -69,6 +69,7 @@
 
 .section-one-text {
   margin-left: 4%;
+  user-select: none;
 }
 
 .button-4 {

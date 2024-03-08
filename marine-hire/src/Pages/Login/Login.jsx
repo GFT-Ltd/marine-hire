@@ -58,7 +58,22 @@ function Login() {
         password: "",
         role: "",
       });
-      // alert("Login successful!");
+
+      // Redirect to appropriate page based on the role
+      switch (response.data.role) {
+        case "admin":
+          navigate("/admin");
+          break;
+        case "applicant":
+          navigate("/applicant");
+          break;
+        case "company":
+          navigate("/company");
+          break;
+        default:
+          navigate("/");
+          break;
+      }
     } catch (error) {
       console.error("Error logging in:", error);
     }
@@ -157,7 +172,6 @@ function Login() {
 
 export default Login;
 
-
 // import React, { useState } from "react";
 // import { Link, useNavigate } from "react-router-dom";
 // import axios from "axios";
@@ -221,7 +235,6 @@ export default Login;
 //       setLoginError("Invalid email or password"); // Set login error message
 //     }
 //   };
-
 
 //   return (
 //     <div className="login">
