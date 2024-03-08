@@ -15,9 +15,9 @@ function NavbarApplicant() {
     <div>
       <nav className="navbar border-bottom navbar-expand-lg bg-body-tertiary">
         <div className="container-fluid">
-          <a className="navbar-brand" href="#">
-            Marine Hire
-          </a>
+          <Link className="navbar-brand" to="/applicant">
+            Jobs Maritime
+          </Link>
           <button
             className="navbar-toggler"
             type="button"

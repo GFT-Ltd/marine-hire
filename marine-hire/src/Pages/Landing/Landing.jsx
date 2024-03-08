@@ -25,10 +25,10 @@ function Landing() {
         <div className="row">
           <div className="col-lg-6 col-md-6 col-12 section-text">
             <div className="section-one-text">
-              <h1>Marine Hire</h1>
+              <h1>Jobs Maritime</h1>
               <br />
               <p>
-                Welcome to Marine Hire, your gateway to exciting career
+                Welcome to Jobs Maritime, your gateway to exciting career
                 opportunities in the marine sector. Whether you're an
                 experienced professional or just starting your journey, we
                 connect talented individuals with leading shipping companies
