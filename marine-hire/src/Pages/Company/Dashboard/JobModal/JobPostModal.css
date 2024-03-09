@@ -1,0 +1,25 @@
+.modal-content {
+  border-radius: 8px;
+}
+
+.section {
+  margin-bottom: 20px;
+}
+
+h2 {
+  font-size: 20px;
+  margin-bottom: 15px;
+}
+
+.form-control {
+  border-radius: 6px;
+  margin-bottom: 2%;
+}
+
+.btn-close {
+  color: #6c757d;
+}
+
+.modal {
+  overflow: hidden;
+}

@@ -6,6 +6,8 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const { generateToken, comparePasswords } = require("./auth");
 require("dotenv").config();
+const JobListing = require("./Models/JobListing.js");
+const LinkPost = require("./Models/LinkPost.js");
 
 const app = express();
 
@@ -96,6 +98,87 @@ app.post("/api/login", async (req, res) => {
     });
   } catch (error) {
     console.error("Error logging in:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+// Job Listing endpoint
+app.post("/api/joblistings", async (req, res) => {
+  try {
+    const {
+      companyName,
+      industrySector,
+      companyDescription,
+      companyWebsite,
+      contactEmail,
+      companyAddress,
+      city,
+      pincode,
+      country,
+      jobTitle,
+      positionType,
+      jobLocation,
+      jobDescription,
+      qualifications,
+      experienceLevel,
+      positionsAvailable,
+      applicationDeadline,
+      responsibilities,
+      requiredSkills,
+      salaryBenefits,
+      otherInfo,
+    } = req.body;
+
+    const newJobListing = new JobListing({
+      companyName,
+      industrySector,
+      companyDescription,
+      companyWebsite,
+      contactEmail,
+      companyAddress,
+      city,
+      pincode,
+      country,
+      jobTitle,
+      positionType,
+      jobLocation,
+      jobDescription,
+      qualifications,
+      experienceLevel,
+      positionsAvailable,
+      applicationDeadline,
+      responsibilities,
+      requiredSkills,
+      salaryBenefits,
+      otherInfo,
+    });
+
+    await newJobListing.save();
+
+    res.status(201).json({ message: "Job listing added successfully" });
+  } catch (error) {
+    console.error("Error adding job listing:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+// Endpoint to create a new link post
+app.post("/api/linkposts", async (req, res) => {
+  try {
+    const { jobTitle, companyName, applicationDeadline, link } = req.body;
+
+    const newLinkPost = new LinkPost({
+      jobTitle,
+      companyName,
+      applicationDeadline,
+      link,
+    });
+
+    await newLinkPost.save();
+
+    res.status(201).json({ message: "Link post added successfully" });
+  } catch (error) {
+    console.error("Error adding link post:", error);
     res.status(500).json({ message: "Internal server error" });
   }
 });
