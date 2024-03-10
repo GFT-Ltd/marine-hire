@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import "./JobPostModal.css"; // Import CSS file for styling
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function JobPostModal({ modalOpen, closeModal }) {
   const [companyInfo, setCompanyInfo] = useState({
@@ -30,7 +32,7 @@ function JobPostModal({ modalOpen, closeModal }) {
   const [salaryBenefits, setSalaryBenefits] = useState({
     salaryRange: "",
     perks: "",
-    officeDays: 0, // Changed to numeric type
+    officeDays: 0,
   });
 
   const [otherInfo, setOtherInfo] = useState("");
@@ -55,29 +57,85 @@ function JobPostModal({ modalOpen, closeModal }) {
   };
 
   const handleSubmit = async () => {
-    try {
-      const response = await fetch("http://localhost:5000/api/joblistings", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          ...companyInfo,
-          ...jobListing,
-          ...salaryBenefits,
-          otherInfo,
-        }),
-      });
+    // Show confirmation dialog
+    const confirmed = window.confirm("Are you sure you want to submit?");
 
-      if (!response.ok) {
-        throw new Error("Failed to post job listing");
+    // Check if user confirmed
+    if (confirmed) {
+      try {
+        const response = await fetch("http://localhost:5000/api/joblistings", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            ...companyInfo,
+            ...jobListing,
+            ...salaryBenefits,
+            otherInfo,
+          }),
+        });
+
+        if (!response.ok) {
+          throw new Error("Failed to post job listing");
+        }
+
+        setCompanyInfo({
+          companyName: "",
+          industrySector: "",
+          companyDescription: "",
+          companyWebsite: "",
+          contactEmail: "",
+          companyAddress: "",
+          city: "",
+          pincode: "",
+          country: "",
+        });
+        setJobListing({
+          jobTitle: "",
+          positionType: "",
+          jobLocation: "",
+          jobDescription: "",
+          qualifications: "",
+          experienceLevel: "",
+          positionsAvailable: 0,
+          applicationDeadline: "",
+          responsibilities: "",
+          requiredSkills: "",
+        });
+        setSalaryBenefits({
+          salaryRange: 0,
+          perks: "",
+          officeDays: 0,
+        });
+        setOtherInfo("");
+
+        toast.success("Job listing posted successfully", {
+          position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        });
+        // You can also add additional logic here, such as clearing the form fields
+      } catch (error) {
+        console.error("Error posting job listing:", error);
+        toast.error("Failed to post job listing. Please try again later.", {
+          position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        });
       }
-
-      alert("Job listing posted successfully");
-      // You can also add additional logic here, such as clearing the form fields
-    } catch (error) {
-      console.error("Error posting job listing:", error);
-      alert("Failed to post job listing. Please try again later.");
+    } else {
+      // User clicked "Cancel", do nothing
     }
   };
 
@@ -93,7 +151,6 @@ function JobPostModal({ modalOpen, closeModal }) {
               type="button"
               className="btn-close"
               onClick={closeModal}
-              col-12
               aria-label="Close"
             ></button>
           </div>
@@ -386,6 +443,18 @@ function JobPostModal({ modalOpen, closeModal }) {
           </div>
         </div>
       </div>
+      <ToastContainer
+        position="top-center"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
     </div>
   );
 }

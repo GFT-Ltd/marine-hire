@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import "./LinkPostModal.css";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function LinkPostModal({ modalTwoOpen, closeModalTwo }) {
   const [formData, setFormData] = useState({
@@ -10,30 +12,56 @@ function LinkPostModal({ modalTwoOpen, closeModalTwo }) {
   });
 
   const handleSubmit = async () => {
-    try {
-      const response = await fetch("http://localhost:5000/api/linkposts", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+    // Show confirmation dialog
+    const confirmed = window.confirm("Are you sure you want to submit?");
 
-      if (!response.ok) {
-        throw new Error("Failed to post link");
+    // Check if user confirmed
+    if (confirmed) {
+      try {
+        const response = await fetch("http://localhost:5000/api/linkposts", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        });
+
+        if (!response.ok) {
+          throw new Error("Failed to post link");
+        }
+
+        toast.success("Link posted successfully", {
+          position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        });
+
+        setFormData({
+          jobTitle: "",
+          companyName: "",
+          applicationDeadline: "",
+          link: "",
+        });
+      } catch (error) {
+        console.error("Error posting link:", error);
+        toast.error("Failed to post job listing. Please try again later.", {
+          position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        });
       }
-
-      alert("Link posted successfully");
-      // Reset the form after successful submission
-      setFormData({
-        jobTitle: "",
-        companyName: "",
-        applicationDeadline: "",
-        link: "",
-      });
-    } catch (error) {
-      console.error("Error posting link:", error);
-      alert("Failed to post link. Please try again later.");
+    } else {
+      // User clicked "Cancel", do nothing
     }
   };
 
@@ -54,7 +82,6 @@ function LinkPostModal({ modalTwoOpen, closeModalTwo }) {
               type="button"
               className="btn-close"
               onClick={closeModalTwo}
-              col-12
               aria-label="Close"
             ></button>
           </div>
@@ -120,10 +147,20 @@ function LinkPostModal({ modalTwoOpen, closeModalTwo }) {
           </div>
         </div>
       </div>
+      <ToastContainer
+        position="top-center"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
     </div>
   );
 }
 
 export default LinkPostModal;
-
-

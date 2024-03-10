@@ -61,7 +61,7 @@
   display: flex;
   text-align: center;
   justify-content: space-around;
-  height: 80vh;
+  height: 60%;
   background-color: #e6e6e9;
   flex-direction: column;
   padding: 5%;
@@ -89,7 +89,7 @@
 
 .job-image-1 {
   height: 24rem;
-  width: 38rem;
+  width: 22rem;
 }
 
 .job-image-2 {
