@@ -120,7 +120,6 @@ function JobPostModal({ modalOpen, closeModal }) {
           progress: undefined,
           theme: "dark",
         });
-        // You can also add additional logic here, such as clearing the form fields
       } catch (error) {
         console.error("Error posting job listing:", error);
         toast.error("Failed to post job listing. Please try again later.", {

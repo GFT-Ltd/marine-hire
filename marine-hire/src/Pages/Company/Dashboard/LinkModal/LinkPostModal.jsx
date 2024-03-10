@@ -30,6 +30,13 @@ function LinkPostModal({ modalTwoOpen, closeModalTwo }) {
           throw new Error("Failed to post link");
         }
 
+        setFormData({
+          jobTitle: "",
+          companyName: "",
+          applicationDeadline: "",
+          link: "",
+        });
+
         toast.success("Link posted successfully", {
           position: "top-center",
           autoClose: 3000,
@@ -39,13 +46,6 @@ function LinkPostModal({ modalTwoOpen, closeModalTwo }) {
           draggable: true,
           progress: undefined,
           theme: "dark",
-        });
-
-        setFormData({
-          jobTitle: "",
-          companyName: "",
-          applicationDeadline: "",
-          link: "",
         });
       } catch (error) {
         console.error("Error posting link:", error);
