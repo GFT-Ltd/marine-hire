@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./LinkPostModal.css";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -10,6 +10,17 @@ function LinkPostModal({ modalTwoOpen, closeModalTwo }) {
     applicationDeadline: "",
     link: "",
   });
+
+  const [postedDate, setPostedDate] = useState(new Date());
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setPostedDate(new Date());
+    }, 1000); // Update every second
+
+    // Clean up the interval
+    return () => clearInterval(intervalId);
+  }, []);
 
   const handleSubmit = async () => {
     // Show confirmation dialog
@@ -23,7 +34,7 @@ function LinkPostModal({ modalTwoOpen, closeModalTwo }) {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(formData),
+          body: JSON.stringify({ ...formData, postedDate }),
         });
 
         if (!response.ok) {

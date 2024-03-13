@@ -1,5 +1,5 @@
 // models/JobListing.js
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const jobListingSchema = new mongoose.Schema({
   companyName: { type: String, required: true },
@@ -21,12 +21,11 @@ const jobListingSchema = new mongoose.Schema({
   applicationDeadline: { type: Date, required: true },
   responsibilities: { type: String },
   requiredSkills: { type: String },
-  salaryBenefits: {
-    salaryRange: { type: String },
-    perks: { type: String },
-    officeDays: { type: Number }
-  },
-  otherInfo: { type: String }
+  salaryRange: { type: Number },
+  perks: { type: String },
+  officeDays: { type: Number },
+  otherInfo: { type: String },
+  postedDate: { type: Date },
 });
 
-module.exports = mongoose.model('JobListing', jobListingSchema);
+module.exports = mongoose.model("JobListing", jobListingSchema);

@@ -1,0 +1,23 @@
+.posted-jobs {
+  overflow: hidden;
+}
+
+/* .jobs-card-section {
+  height: 50rem;
+} */
+
+.job-card-item {
+  padding: 5%;
+  padding-top: 2%;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+}
+
+.jobs-title-section {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  padding: 2%;
+  user-select: none;
+}

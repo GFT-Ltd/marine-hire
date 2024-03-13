@@ -6,6 +6,7 @@ import JobPostModal from "./JobModal/JobPostModal";
 import image1 from "../../../Assets/job-image-1.png";
 import image2 from "../../../Assets/job-image-2.png";
 import LinkPostModal from "./LinkModal/LinkPostModal";
+import { useNavigate } from "react-router-dom";
 
 function CompanyDashboard() {
   const [modalOpen, setModalOpen] = useState(false);
@@ -60,6 +61,12 @@ function CompanyDashboard() {
     };
   }, [modalTwoOpen]);
 
+  const navigate = useNavigate();
+
+  const goToPostedJobsPage = () => {
+    navigate("/jobs-posted");
+  };
+
   return (
     <div>
       <NavbarCompany />
@@ -98,6 +105,19 @@ function CompanyDashboard() {
             </div>
             <div className="col-lg-5 col-md-6 col-12 button-section">
               <img className="job-image-2" src={image2} alt="image-1" />
+            </div>
+          </div>
+        </div>
+        <div className="job-card-section">
+          <div className="card">
+            Explore your posted jobs effortlessly.
+            <br />
+            Click here to view comprehensive details and manage your job
+            listings with ease.
+            <div className="click-button">
+              <button className="button-4" onClick={goToPostedJobsPage}>
+                Posted Jobs
+              </button>
             </div>
           </div>
         </div>

@@ -6,17 +6,17 @@
 
 .landing-section-one {
   background-color: #e6e6e9;
-  height: 75vh;
+  height: 27rem;
 }
 
 .landing-section-two {
   background-color: white;
-  height: 75vh;
+  height: 27rem;
 }
 
 .landing-section-three {
   background-color: #e6e6e9;
-  height: 75vh;
+  height: 27rem;
 }
 
 .image-section {
@@ -40,18 +40,18 @@
   }
   .landing-section-one {
     background-color: #e6e6e9;
-    height: 60vh;
+    height: 35rem;
     padding-top: 2%;
   }
   .landing-section-two {
     background-color: white;
-    height: 60vh;
+    height: 35rem;
     padding-top: 2%;
   }
 
   .landing-section-three {
     background-color: #e6e6e9;
-    height: 60vh;
+    height: 35rem;
     padding-top: 2%;
   }
 

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./JobPostModal.css"; // Import CSS file for styling
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -30,12 +30,22 @@ function JobPostModal({ modalOpen, closeModal }) {
   });
 
   const [salaryBenefits, setSalaryBenefits] = useState({
-    salaryRange: "",
+    salaryRange: 0,
     perks: "",
     officeDays: 0,
   });
 
   const [otherInfo, setOtherInfo] = useState("");
+  const [postedDate, setPostedDate] = useState(new Date());
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setPostedDate(new Date());
+    }, 1000); // Update every second
+
+    // Clean up the interval
+    return () => clearInterval(intervalId);
+  }, []);
 
   const handleCompanyInfoChange = (e) => {
     const { name, value } = e.target;
@@ -73,6 +83,7 @@ function JobPostModal({ modalOpen, closeModal }) {
             ...jobListing,
             ...salaryBenefits,
             otherInfo,
+            postedDate,
           }),
         });
 

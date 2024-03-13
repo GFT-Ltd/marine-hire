@@ -15,7 +15,7 @@ function NavbarCompany() {
     <div>
       <nav className="navbar border-bottom navbar-expand-lg bg-body-tertiary">
         <div className="container-fluid">
-          <Link className="navbar-brand" to="/admin">
+          <Link className="navbar-brand" to="/company">
             Jobs Maritime
           </Link>
           <button
@@ -35,13 +35,13 @@ function NavbarCompany() {
                 <Link
                   className="nav-link active"
                   aria-current="page"
-                  to="/admin"
+                  to="/company"
                 >
                   Home
                 </Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="/admin-applicants">
+                <Link className="nav-link active" to="/jobs-posted">
                   Posted
                 </Link>
               </li>

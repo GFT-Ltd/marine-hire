@@ -125,8 +125,11 @@ app.post("/api/joblistings", async (req, res) => {
       applicationDeadline,
       responsibilities,
       requiredSkills,
-      salaryBenefits,
+      salaryRange,
+      perks,
+      officeDays,
       otherInfo,
+      postedDate,
     } = req.body;
 
     const newJobListing = new JobListing({
@@ -149,8 +152,11 @@ app.post("/api/joblistings", async (req, res) => {
       applicationDeadline,
       responsibilities,
       requiredSkills,
-      salaryBenefits,
+      salaryRange,
+      perks,
+      officeDays,
       otherInfo,
+      postedDate,
     });
 
     await newJobListing.save();
@@ -162,16 +168,64 @@ app.post("/api/joblistings", async (req, res) => {
   }
 });
 
+// endpoint to fetch job listings
+app.get("/api/joblistings", async (req, res) => {
+  try {
+    // Fetch job listings from MongoDB
+    const jobListings = await JobListing.find();
+
+    // Send job listings as response
+    res.status(200).json(jobListings);
+  } catch (error) {
+    console.error("Error fetching job listings:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+// Define endpoint to fetch job details by ID
+app.get("/api/joblistings/:id", async (req, res) => {
+  try {
+    const jobId = req.params.id;
+    const job = await JobListing.findById(jobId);
+
+    if (!job) {
+      return res.status(404).json({ message: "Job not found" });
+    }
+
+    res.status(200).json(job);
+  } catch (error) {
+    console.error("Error fetching job details:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+// DELETE endpoint to delete a job by ID
+app.delete("/api/joblistings/:id", async (req, res) => {
+  try {
+    const jobId = req.params.id;
+    const deletedJob = await JobListing.findByIdAndDelete(jobId);
+    if (!deletedJob) {
+      return res.status(404).json({ message: "Job not found" });
+    }
+    res.status(200).json({ message: "Job deleted successfully" });
+  } catch (error) {
+    console.error("Error deleting job:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
 // Endpoint to create a new link post
 app.post("/api/linkposts", async (req, res) => {
   try {
-    const { jobTitle, companyName, applicationDeadline, link } = req.body;
+    const { jobTitle, companyName, applicationDeadline, link, postedDate } =
+      req.body;
 
     const newLinkPost = new LinkPost({
       jobTitle,
       companyName,
       applicationDeadline,
       link,
+      postedDate,
     });
 
     await newLinkPost.save();
@@ -179,6 +233,53 @@ app.post("/api/linkposts", async (req, res) => {
     res.status(201).json({ message: "Link post added successfully" });
   } catch (error) {
     console.error("Error adding link post:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+// Define endpoint to fetch link posts
+app.get("/api/linkposts", async (req, res) => {
+  try {
+    // Fetch link posts from MongoDB
+    const linkPosts = await LinkPost.find();
+
+    // Sort link posts by postedDate in descending order
+    linkPosts.sort((a, b) => new Date(b.postedDate) - new Date(a.postedDate));
+
+    // Send link posts as response
+    res.status(200).json(linkPosts);
+  } catch (error) {
+    console.error("Error fetching link posts:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+// Define endpoint to fetch a linkPost by ID
+app.get("/api/linkposts/:id", async (req, res) => {
+  try {
+    const linkPostId = req.params.id;
+    const linkPost = await LinkPost.findById(linkPostId);
+
+    if (!linkPost) {
+      return res.status(404).json({ message: "Link post not found" });
+    }
+
+    res.status(200).json(linkPost);
+  } catch (error) {
+    console.error("Error fetching link post details:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+// DELETE endpoint to delete a link post by ID
+app.delete("/api/linkposts/:id", async (req, res) => {
+  try {
+    const linkPostId = req.params.id;
+    // Delete the link post from the database
+    await LinkPost.findByIdAndDelete(linkPostId);
+    res.status(200).json({ message: "Link post deleted successfully" });
+  } catch (error) {
+    console.error("Error deleting link post:", error);
     res.status(500).json({ message: "Internal server error" });
   }
 });

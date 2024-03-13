@@ -175,6 +175,9 @@ import ApplicantDashboard from "./Pages/Applicant/Dashboard/ApplicantDashboard";
 import CompanyDashboard from "./Pages/Company/Dashboard/CompanyDashboard";
 import CompaniesPage from "./Pages/Admin/CompaniesPage/CompaniesPage";
 import ApplicantsPage from "./Pages/Admin/ApplicantsPage/ApplicantsPage";
+import PostedJobs from "./Pages/Company/PostedJobs/PostedJobs";
+import JobDetailsPage from "./Pages/Company/PostedJobs/JobDetailsPage/JobDetailsPage";
+import JobLinkDetailsPage from "./Pages/Company/PostedJobs/JobLinkDetailsPage/JobLinkDetailsPage";
 
 // ProtectedRoute component for 'admin' role
 const ProtectedRouteAdmin = ({ element }) => {
@@ -234,6 +237,18 @@ function App() {
       <Route
         path="/company"
         element={<ProtectedRouteCompany element={<CompanyDashboard />} />}
+      />
+      <Route
+        path="/jobs-posted"
+        element={<ProtectedRouteCompany element={<PostedJobs />} />}
+      />
+      <Route
+        path="/job/:id"
+        element={<ProtectedRouteCompany element={<JobDetailsPage />} />}
+      />
+      <Route
+        path="/job-link/:id"
+        element={<ProtectedRouteCompany element={<JobLinkDetailsPage />} />}
       />
     </Routes>
   );
