@@ -175,7 +175,7 @@ function JobDetailsPage() {
       <NavbarCompany />
       <div className="details-content-section">
         <div
-          className={`alert alert-secondary details-card ${
+          className={`alert alert-primary details-card ${
             showDetails ? "show-details" : ""
           }`}
           role="alert"

@@ -5,18 +5,35 @@
 }
 
 .landing-section-one {
-  background-color: #e6e6e9;
+  background-color: #ffd6a4;
   height: 27rem;
 }
 
 .landing-section-two {
-  background-color: white;
+  background-color: #fde9df;
   height: 27rem;
+  margin-top: 3rem;
+  margin-bottom: 3rem;
 }
 
 .landing-section-three {
-  background-color: #e6e6e9;
+  background-color: #ffd6a4;
   height: 27rem;
+  margin-bottom: 3rem;
+}
+
+@media (min-width: 1326px) {
+  .landing-section-one {
+    height: 30rem;
+  }
+
+  .landing-section-two {
+    height: 30rem;
+  }
+
+  .landing-section-three {
+    height: 30rem;
+  }
 }
 
 .image-section {
@@ -39,18 +56,18 @@
     width: 26rem;
   }
   .landing-section-one {
-    background-color: #e6e6e9;
+    background-color: #ffd6a4;
     height: 35rem;
     padding-top: 2%;
   }
   .landing-section-two {
-    background-color: white;
+    background-color: #fde9df;
     height: 35rem;
     padding-top: 2%;
   }
 
   .landing-section-three {
-    background-color: #e6e6e9;
+    background-color: #ffd6a4;
     height: 35rem;
     padding-top: 2%;
   }
@@ -74,7 +91,7 @@
 
 .button-4 {
   appearance: none;
-  background-color: #fafbfc;
+  background-color: #fff;
   border: 1px solid rgba(27, 31, 35, 0.15);
   border-radius: 6px;
   box-shadow: rgba(27, 31, 35, 0.04) 0 1px 0,

@@ -2,9 +2,10 @@
   box-sizing: border-box;
   width: 20rem;
   height: 15rem;
-  /* background: rgba(217, 217, 217, 0.58); */
-  background-color: rgb(83, 136, 167);
-  border: 1px solid white;
+  background: rgb(254,169,64);
+  background: linear-gradient(144deg, rgba(254,169,64,1) 0%, rgba(255,196,106,1) 35%, rgba(255,230,155,1) 100%);
+  border: 1px solid rgb(255, 159, 49);
+  border: 1px solid rgb(255, 159, 49);
   box-shadow: 12px 17px 51px rgba(0, 0, 0, 0.22);
   backdrop-filter: blur(6px);
   border-radius: 17px;
@@ -15,7 +16,7 @@
   align-items: center;
   justify-content: center;
   user-select: none;
-  color: white;
+  color: black;
 }
 
 .job-card:hover {
