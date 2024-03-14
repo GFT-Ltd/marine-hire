@@ -2,11 +2,15 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import "./JobDetailsPage.css";
 import NavbarCompany from "../../NavbarCompany/NavbarCompany";
+import JobEditModal from "./JobEditModal/JobEditModal";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function JobDetailsPage() {
   const { id } = useParams();
   const [job, setJob] = useState(null);
   const [showDetails, setShowDetails] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -24,6 +28,20 @@ function JobDetailsPage() {
 
     fetchJobDetails();
   }, [id]);
+
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.key === "Escape" && showEditModal) {
+        toggleEditModal();
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [showEditModal]);
 
   if (!job) {
     return <div>Loading...</div>;
@@ -54,15 +72,101 @@ function JobDetailsPage() {
           }
         );
         if (response.ok) {
-          // Deletion successful
-          navigate("/jobs-posted"); // Navigate to 'jobs-posted' page
+          toast.success("Deleted successfully", {
+            position: "top-center",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+          });
+          navigate("/jobs-posted");
         } else {
-          // Handle deletion failure
           console.error("Failed to delete job:", response.statusText);
+          toast.error("Failed to delete job. Please try again later.", {
+            position: "top-center",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+          });
         }
       } catch (error) {
         console.error("Failed to delete job:", error);
+        toast.error("Failed to delete job. Please try again later.", {
+          position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        });
       }
+    }
+  };
+
+  const toggleEditModal = () => {
+    console.log(showEditModal);
+    setShowEditModal(!showEditModal);
+  };
+
+  const handleSave = async (updatedJob) => {
+    try {
+      const response = await fetch(
+        `http://localhost:5000/api/joblistings/${id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(updatedJob),
+        }
+      );
+      if (response.ok) {
+        setJob(updatedJob);
+        toggleEditModal();
+        toast.success("Job updated successfully", {
+          position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        });
+      } else {
+        console.error("Failed to update job:", response.statusText);
+        toast.error("Failed to update job. Please try again later.", {
+          position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        });
+      }
+    } catch (error) {
+      console.error("Failed to update job:", error);
+      toast.error("Failed to update job. Please try again later.", {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
     }
   };
 
@@ -146,9 +250,12 @@ function JobDetailsPage() {
             <div className="col-lg-6 col-md-6 col-12  hidden-detail-field">
               Other info. - {job.otherInfo}
             </div>
-            <div className="col-12  hidden-detail-field">
+            <div className="col-12 hidden-detail-field">
               <button className="delete-button-4" onClick={handleDelete}>
                 Delete
+              </button>
+              <button className="delete-button-4" onClick={toggleEditModal}>
+                Edit Details
               </button>
             </div>
             <div className="col-12 d-flex ms-auto flex-row-reverse">
@@ -191,7 +298,26 @@ function JobDetailsPage() {
             </div>
           </div>
         </div>
+        {showEditModal && (
+          <JobEditModal
+            job={job}
+            onSave={handleSave}
+            onCancel={toggleEditModal}
+          />
+        )}
       </div>
+      <ToastContainer
+        position="top-center"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
     </div>
   );
 }

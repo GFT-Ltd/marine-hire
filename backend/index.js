@@ -214,6 +214,28 @@ app.delete("/api/joblistings/:id", async (req, res) => {
   }
 });
 
+// Update job listing endpoint
+app.put("/api/joblistings/:id", async (req, res) => {
+  try {
+    const jobId = req.params.id;
+    const updatedJob = req.body;
+
+    // Find the job listing by ID and update it
+    const job = await JobListing.findByIdAndUpdate(jobId, updatedJob, {
+      new: true,
+    });
+
+    if (!job) {
+      return res.status(404).json({ message: "Job not found" });
+    }
+
+    res.status(200).json({ message: "Job updated successfully", job });
+  } catch (error) {
+    console.error("Error updating job:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
 // Endpoint to create a new link post
 app.post("/api/linkposts", async (req, res) => {
   try {
@@ -280,6 +302,25 @@ app.delete("/api/linkposts/:id", async (req, res) => {
     res.status(200).json({ message: "Link post deleted successfully" });
   } catch (error) {
     console.error("Error deleting link post:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+// Update a link post
+app.put("/api/linkposts/:id", async (req, res) => {
+  try {
+    const { jobTitle, companyName, applicationDeadline, link } = req.body;
+    const updatedLinkPost = await LinkPost.findByIdAndUpdate(
+      req.params.id,
+      { jobTitle, companyName, applicationDeadline, link },
+      { new: true }
+    );
+    if (!updatedLinkPost) {
+      return res.status(404).json({ message: "Link post not found" });
+    }
+    res.json(updatedLinkPost);
+  } catch (error) {
+    console.error("Error updating link post:", error);
     res.status(500).json({ message: "Internal server error" });
   }
 });
