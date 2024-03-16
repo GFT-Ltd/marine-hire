@@ -178,6 +178,7 @@ import ApplicantsPage from "./Pages/Admin/ApplicantsPage/ApplicantsPage";
 import PostedJobs from "./Pages/Company/PostedJobs/PostedJobs";
 import JobDetailsPage from "./Pages/Company/PostedJobs/JobDetailsPage/JobDetailsPage";
 import JobLinkDetailsPage from "./Pages/Company/PostedJobs/JobLinkDetailsPage/JobLinkDetailsPage";
+import PdfUpload from "./Pages/Company/PdfUpload/PdfUpload";
 
 // ProtectedRoute component for 'admin' role
 const ProtectedRouteAdmin = ({ element }) => {
@@ -249,6 +250,10 @@ function App() {
       <Route
         path="/job-link/:id"
         element={<ProtectedRouteCompany element={<JobLinkDetailsPage />} />}
+      />
+      <Route
+        path="/pdf-upload"
+        element={<ProtectedRouteCompany element={<PdfUpload />} />}
       />
     </Routes>
   );

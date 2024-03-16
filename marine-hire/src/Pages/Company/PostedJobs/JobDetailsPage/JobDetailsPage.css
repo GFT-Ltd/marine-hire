@@ -2,18 +2,29 @@
   overflow: hidden;
 }
 
+.details-container {
+  background: rgb(255, 210, 138);
+  background: linear-gradient(
+    142deg,
+    rgba(255, 210, 138, 1) 0%,
+    rgba(248, 219, 170, 1) 46%,
+    rgba(255, 237, 210, 1) 100%
+  );
+}
+
 .details-content-section {
   padding: 2%;
 }
 
+.visible-section {
+  background-color: #ffffff44;
+  border-radius: 0.4rem;
+  color: black;
+}
+
 .detail-field {
-  /* padding: 0.4%; */
   font-size: 1.2rem;
-  background-color: white;
   border-radius: 15px;
-  /* margin-top: 1%; */
-  width: 48%;
-  margin: 1%;
 }
 
 .btn-conteiner {
@@ -68,7 +79,6 @@
   top: 6%;
 }
 
-/* SVG */
 #arrow-icon-one {
   transition: 0.4s;
   transform: translateX(-60%);
@@ -93,7 +103,6 @@
   animation: color_anim 1s infinite 0.4s;
 }
 
-/* SVG animations */
 @keyframes color_anim {
   0% {
     fill: white;
@@ -108,7 +117,6 @@
   }
 }
 
-/* Button animations */
 @-webkit-keyframes btn-content {
   0% {
     outline: 0.2em solid var(--color-background);
@@ -123,18 +131,21 @@
   }
 }
 
+.hidden-section {
+  margin-top: 2%;
+  background-color: #ffffff44;
+  border-radius: 0.4rem;
+  /* padding: 1%; */
+}
+
 .hidden-detail-field {
   max-height: 0;
   overflow: hidden;
-  transition: max-height 1s ease-out;
+  transition: max-height 1s ease-in-out;
 }
 
 .show-details .hidden-detail-field {
   max-height: 40rem;
-}
-
-.hidden-first-row {
-  margin-top: 2%;
 }
 
 .delete-button-4 {

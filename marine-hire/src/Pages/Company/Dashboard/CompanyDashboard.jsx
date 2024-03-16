@@ -67,6 +67,10 @@ function CompanyDashboard() {
     navigate("/jobs-posted");
   };
 
+  const goToPdfUpload = () => {
+    navigate("/pdf-upload");
+  };
+
   return (
     <div>
       <NavbarCompany />
@@ -101,6 +105,9 @@ function CompanyDashboard() {
               </div>
               <button className="button-4" onClick={openModalTwo}>
                 Provide the Link
+              </button>
+              <button className="button-4" onClick={goToPdfUpload}>
+                Upload pdf
               </button>
             </div>
             <div className="col-lg-5 col-md-6 col-12 button-section">

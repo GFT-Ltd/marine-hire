@@ -2,14 +2,23 @@
   padding: 2%;
 }
 
+.details-container {
+  background: rgb(255, 210, 138);
+  background: linear-gradient(
+    142deg,
+    rgba(255, 210, 138, 1) 0%,
+    rgba(248, 219, 170, 1) 46%,
+    rgba(255, 237, 210, 1) 100%
+  );
+}
+
+.visible-link-section {
+  background-color: #ffffff44;
+  border-radius: 0.4rem;
+}
+
 .detail-field {
-  /* padding: 0.4%; */
   font-size: 1.2rem;
-  background-color: white;
-  border-radius: 15px;
-  /* margin-top: 1%; */
-  width: 48%;
-  margin: 1%;
 }
 
 .delete-button-4 {
@@ -70,4 +79,16 @@
 
 .delete-button-4:-webkit-details-marker {
   display: none;
+}
+
+.details-container {
+  background: rgb(255, 210, 138);
+  background: linear-gradient(
+    142deg,
+    rgba(255, 210, 138, 1) 0%,
+    rgba(248, 219, 170, 1) 46%,
+    rgba(255, 237, 210, 1) 100%
+  );
+  border-width: 2px;
+  border-color: #ffc06d;
 }

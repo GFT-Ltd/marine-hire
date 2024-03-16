@@ -169,19 +169,32 @@ function JobLinkDetailsPage() {
     <div className="job-link-details-page">
       <NavbarCompany />
       <div className="link-details-section">
-        <div className="alert alert-primary" role="alert">
+        <div className="alert details-container" role="alert">
           <div className="row">
-            <div className="col-lg-6 col-md-6 col-12 detail-field">
-              Title - {linkPost.jobTitle}
-            </div>
-            <div className="col-lg-6 col-md-6 col-12 detail-field">
-              Company name - {linkPost.companyName}
-            </div>
-            <div className="col-lg-6 col-md-6 col-12 detail-field">
-              Deadline - {formattedDate}
-            </div>
-            <div className="col-lg-6 col-md-6 col-12 detail-field">
-              URL - {linkPost.link}
+            <div className="col-12 visible-link-section">
+              <div className="row">
+                <div className="col-lg-6 col-md-6 col-12 detail-field">
+                  <br />
+                  <strong>Title - </strong>
+                  {linkPost.jobTitle}
+                </div>
+                <div className="col-lg-6 col-md-6 col-12 detail-field">
+                  <br />
+                  <strong>Company name - </strong>
+                  {linkPost.companyName}
+                </div>
+                <div className="col-lg-6 col-md-6 col-12 detail-field">
+                  <br />
+                  <strong>Deadline - </strong>
+                  {formattedDate}
+                </div>
+                <div className="col-lg-6 col-md-6 col-12 detail-field">
+                  <br />
+                  <strong>URL - </strong>
+                  {linkPost.link}
+                </div>
+              </div>
+              <br />
             </div>
             <div className="col-12">
               <button className="delete-button-4" onClick={handleDelete}>

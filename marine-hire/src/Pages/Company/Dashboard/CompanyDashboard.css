@@ -1,6 +1,6 @@
 .button-4 {
   appearance: none;
-  background-color: #fafbfc;
+  background-color: #fcfbfa;
   border: 1px solid rgba(27, 31, 35, 0.15);
   border-radius: 6px;
   box-shadow: rgba(27, 31, 35, 0.04) 0 1px 0,
@@ -140,7 +140,7 @@
     rgba(255, 231, 186, 1) 35%,
     rgba(255, 250, 196, 1) 100%
   );
-  border: 1px solid white;
+  border: 1px solid #ff8903;
   box-shadow: 12px 17px 51px rgba(0, 0, 0, 0.22);
   backdrop-filter: blur(6px);
   border-radius: 17px;
