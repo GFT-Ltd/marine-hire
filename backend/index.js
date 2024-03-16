@@ -8,6 +8,7 @@ const { generateToken, comparePasswords } = require("./auth");
 require("dotenv").config();
 const JobListing = require("./Models/JobListing.js");
 const LinkPost = require("./Models/LinkPost.js");
+const pdfParse = require("pdf-parse");
 
 const app = express();
 
@@ -321,6 +322,18 @@ app.put("/api/linkposts/:id", async (req, res) => {
     res.json(updatedLinkPost);
   } catch (error) {
     console.error("Error updating link post:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+// Endpoint for parsing PDF
+app.post("/parse-pdf", async (req, res) => {
+  try {
+    const pdfData = Buffer.from(req.body.pdfData, "base64");
+    const data = await pdfParse(pdfData);
+    res.send({ extractedData: data.text });
+  } catch (error) {
+    console.error("Error parsing PDF:", error);
     res.status(500).json({ message: "Internal server error" });
   }
 });
