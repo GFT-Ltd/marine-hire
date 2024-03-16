@@ -9,6 +9,17 @@
   justify-content: center;
 }
 
+@media (max-width: 768px) {
+  .login {
+    overflow-x: hidden;
+    margin: 0;
+    padding: 2%;
+    padding-top: 5%;
+    background-color: #e6e6e9;
+    height: 100vh;
+  }
+}
+
 .form-div {
   width: 25rem;
   height: fit-content;
@@ -43,4 +54,25 @@
 .form-check {
   padding-top: 2%;
   padding-bottom: 2%;
+}
+
+.password-input-container {
+  position: relative;
+}
+
+.eye-icon {
+  position: absolute;
+  right: 10px;
+  top: 45%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+.eye-icon svg {
+  font-size: 1rem;
+  color: #999;
+}
+
+.eye-icon:hover svg {
+  color: #333;
 }

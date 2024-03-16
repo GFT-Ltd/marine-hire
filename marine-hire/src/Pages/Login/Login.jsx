@@ -5,6 +5,8 @@ import axios from "axios";
 import "./Login.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+import Navbar from "../../Components/Navbar/Navbar";
 
 function Login() {
   const [formData, setFormData] = useState({
@@ -13,10 +15,15 @@ function Login() {
     role: "",
   });
 
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleTogglePassword = () => {
+    setShowPassword(!showPassword);
   };
 
   // const handleSubmit = async (e) => {
@@ -103,105 +110,113 @@ function Login() {
   };
 
   return (
-    <div className="login">
-      <div className="form-div">
-        <h3>Login</h3>
-        <div>
-          <form className="form-tag" onSubmit={handleSubmit}>
-            <div className="mb-3 form-check">
-              <div className="form-check form-check-inline">
+    <>
+      <Navbar />
+      <div className="login">
+        <div className="form-div">
+          <h3>Login</h3>
+          <div>
+            <form className="form-tag" onSubmit={handleSubmit}>
+              <div className="mb-3 form-check">
+                <div className="form-check form-check-inline">
+                  <input
+                    className="form-check-input"
+                    type="radio"
+                    name="role"
+                    id="inlineRadio1"
+                    value="admin"
+                    onChange={handleChange}
+                  />
+                  <label className="form-check-label" htmlFor="inlineRadio1">
+                    Admin
+                  </label>
+                </div>
+                <div className="form-check form-check-inline">
+                  <input
+                    className="form-check-input"
+                    type="radio"
+                    name="role"
+                    id="inlineRadio2"
+                    value="applicant"
+                    onChange={handleChange}
+                  />
+                  <label className="form-check-label" htmlFor="inlineRadio2">
+                    Applicant
+                  </label>
+                </div>
+                <div className="form-check form-check-inline">
+                  <input
+                    className="form-check-input"
+                    type="radio"
+                    name="role"
+                    id="inlineRadio3"
+                    value="company"
+                    onChange={handleChange}
+                  />
+                  <label className="form-check-label" htmlFor="inlineRadio3">
+                    Company
+                  </label>
+                </div>
+              </div>
+              <div className="mb-3">
+                <label htmlFor="exampleInputEmail1" className="form-label">
+                  Email address
+                </label>
                 <input
-                  className="form-check-input"
-                  type="radio"
-                  name="role"
-                  id="inlineRadio1"
-                  value="admin"
+                  type="email"
+                  className="form-control"
+                  id="exampleInputEmail1"
+                  name="email"
+                  value={formData.email}
                   onChange={handleChange}
                 />
-                <label className="form-check-label" htmlFor="inlineRadio1">
-                  Admin
-                </label>
               </div>
-              <div className="form-check form-check-inline">
-                <input
-                  className="form-check-input"
-                  type="radio"
-                  name="role"
-                  id="inlineRadio2"
-                  value="applicant"
-                  onChange={handleChange}
-                />
-                <label className="form-check-label" htmlFor="inlineRadio2">
-                  Applicant
+              <div className="mb-3">
+                <label htmlFor="exampleInputPassword1" className="form-label">
+                  Password
                 </label>
+                <div className="password-input-container">
+                  <input
+                    type={showPassword ? "text" : "password"}
+                    className="form-control"
+                    id="exampleInputPassword1"
+                    name="password"
+                    value={formData.password}
+                    onChange={handleChange}
+                  />
+                  <div className="eye-icon" onClick={handleTogglePassword}>
+                    {showPassword ? <FaEye /> : <FaEyeSlash />}
+                  </div>
+                </div>
               </div>
-              <div className="form-check form-check-inline">
-                <input
-                  className="form-check-input"
-                  type="radio"
-                  name="role"
-                  id="inlineRadio3"
-                  value="company"
-                  onChange={handleChange}
-                />
-                <label className="form-check-label" htmlFor="inlineRadio3">
-                  Company
-                </label>
+              <div className="form-button-div">
+                <button type="submit" className="btn btn-primary">
+                  Submit
+                </button>
               </div>
+            </form>
+            <div className="login-info">
+              <p>New here? </p>
+              <Link to="/register" className="login-link">
+                ‎ Register
+              </Link>
             </div>
-            <div className="mb-3">
-              <label htmlFor="exampleInputEmail1" className="form-label">
-                Email address
-              </label>
-              <input
-                type="email"
-                className="form-control"
-                id="exampleInputEmail1"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-              />
-            </div>
-            <div className="mb-3">
-              <label htmlFor="exampleInputPassword1" className="form-label">
-                Password
-              </label>
-              <input
-                type="password"
-                className="form-control"
-                id="exampleInputPassword1"
-                name="password"
-                value={formData.password}
-                onChange={handleChange}
-              />
-            </div>
-            <div className="form-button-div">
-              <button type="submit" className="btn btn-primary">
-                Submit
-              </button>
-            </div>
-          </form>
-          <div className="login-info">
-            <p>New here? </p>
-            <Link to="/register" className="login-link">
-              ‎ Register
-            </Link>
           </div>
         </div>
+        <ToastContainer
+          position="top-center"
+          autoClose={3000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="dark"
+        />
       </div>
-      <ToastContainer
-        position="top-center"
-        autoClose={3000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="dark"
-      />
-    </div>
+    </>
   );
 }
 
