@@ -6,6 +6,7 @@ const linkPostSchema = new mongoose.Schema({
   applicationDeadline: { type: Date, required: true },
   link: { type: String, required: true },
   postedDate: { type: Date },
+  postedBy: { type: String, required: true },
 });
 
 module.exports = mongoose.model("LinkPost", linkPostSchema);

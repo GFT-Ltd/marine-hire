@@ -4,7 +4,6 @@ import "./CompanyDashboard.css";
 import Footer from "../../../Components/Footer/Footer";
 import JobPostModal from "./JobModal/JobPostModal";
 import image1 from "../../../Assets/job-image-1.png";
-import image2 from "../../../Assets/job-image-2.png";
 import LinkPostModal from "./LinkModal/LinkPostModal";
 import { useNavigate } from "react-router-dom";
 
@@ -93,25 +92,31 @@ function CompanyDashboard() {
             </div>
           </div>
         </div>
-        <div className="job-post-section" id="second-section">
+        <div className="job-post-section-two" id="second-section">
           <div className="row">
-            <div className="col-lg-7 col-md-6 col-12 text-section">
+            <div className="col-lg-6 col-md-6 col-12 text-section sub-section-one">
+              <h3>Link Upload</h3>
               <div>
-                Already have a specific application form or link for job
-                seekers? Great! Simply click the button to share your custom
-                application link. This way, applicants can seamlessly connect
-                with your unique hiring process while enjoying the exposure on
-                our Maritime Job Portal.
+                If you prefer applicants to submit their details directly
+                through your custom application link, click here.
               </div>
               <button className="button-4" onClick={openModalTwo}>
                 Provide the Link
               </button>
-              <button className="button-4" onClick={goToPdfUpload}>
-                Upload pdf
-              </button>
             </div>
-            <div className="col-lg-5 col-md-6 col-12 button-section">
-              <img className="job-image-2" src={image2} alt="image-1" />
+            <div className="col-lg-6 col-md-6 col-12 text-section sub-section-two">
+              {/* <img className="job-image-2" src={image2} alt="image-1" /> */}
+              <h3>PDF Upload</h3>
+              <div>
+                If you wish to upload job details in PDF format, please click
+                here to proceed with the submission process.
+              </div>
+              <button
+                className="button-4 pdf-upload-button"
+                onClick={goToPdfUpload}
+              >
+                Upload PDF
+              </button>
             </div>
           </div>
         </div>

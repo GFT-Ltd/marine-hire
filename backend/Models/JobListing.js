@@ -26,6 +26,7 @@ const jobListingSchema = new mongoose.Schema({
   officeDays: { type: Number },
   otherInfo: { type: String },
   postedDate: { type: Date },
+  postedBy: { type: String, required: true },
 });
 
 module.exports = mongoose.model("JobListing", jobListingSchema);

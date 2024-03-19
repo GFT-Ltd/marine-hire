@@ -74,12 +74,32 @@
   font-size: 1.2rem;
 }
 
+.job-post-section-two {
+  display: flex;
+  text-align: center;
+  justify-content: space-around;
+  height: 50%;
+  margin-bottom: 3rem;
+  /* padding: 5%; */
+  font-size: 1.2rem;
+}
+
 .job-post-section .text-section {
   display: flex;
   text-align: left;
   justify-content: space-around;
   flex-direction: column;
   margin-top: 1rem;
+  padding: 5%;
+}
+
+.job-post-section-two .text-section {
+  display: flex;
+  text-align: left;
+  justify-content: space-around;
+  flex-direction: column;
+  margin-top: 1rem;
+  padding: 5%;
 }
 
 .job-post-section .button-section {
@@ -91,14 +111,33 @@
 }
 
 #second-section {
-  background: rgb(255, 214, 164);
+  /* background: rgb(255, 214, 164);
   background: linear-gradient(
     180deg,
     rgba(255, 214, 164, 1) 0%,
     rgba(255, 219, 175, 1) 35%,
     rgba(255, 243, 218, 1) 100%
-  );
+  ); */
   height: 35rem;
+  /* padding: 5%; */
+}
+
+.sub-section-two {
+  /* padding: 5%; */
+  background-color: white;
+  color: #ff9100;
+}
+
+.sub-section-one {
+  background: rgb(255, 218, 162);
+  background: linear-gradient(
+    22deg,
+    rgba(255, 218, 162, 1) 0%,
+    rgba(255, 196, 127, 1) 11%,
+    rgba(255, 178, 76, 1) 45%
+  );
+  border-top-right-radius: 2rem;
+  border-bottom-right-radius: 2rem;
 }
 
 .job-image-1 {
@@ -114,6 +153,10 @@
 @media (max-width: 768px) {
   .job-post-section button {
     margin-top: 5%;
+  }
+  .job-image-2 {
+    height: 20rem;
+    width: 22rem;
   }
 }
 
@@ -226,4 +269,17 @@
 
 .click-button {
   padding-top: 5%;
+}
+
+.pdf-upload-button {
+  /* color: #ff9100;
+  border-color: #ff9100; */
+  background-color: #f99004;
+  color: white;
+}
+
+.pdf-upload-button:hover {
+  border-color: #f99004;
+  color: #f99004;
+  background-color: white;
 }

@@ -4,8 +4,9 @@ import Footer from "../../Components/Footer/Footer";
 import "./Landing.css";
 import logo1 from "../../Assets/2.png";
 import logo2 from "../../Assets/1.png";
-import logo3 from "../../Assets/3.png";
+import logo3 from "../../Assets/job-image-2.png";
 import { useNavigate } from "react-router-dom";
+import JobsCarousel from "./JobsCarousel/JobsCarousel";
 
 function Landing() {
   const navigate = useNavigate();
@@ -44,6 +45,9 @@ function Landing() {
             <img className="image-1" src={logo1} alt="image-1" />
           </div>
         </div>
+      </div>
+      <div className="div-ad-job-card">
+        <JobsCarousel />
       </div>
       <div className="landing-section-two">
         <div className="row">
@@ -87,7 +91,11 @@ function Landing() {
             </div>
           </div>
           <div className="col-lg-6 col-md-6 col-12 image-section">
-            <img className="image-1" src={logo3} alt="image-3" />
+            <img
+              className="image-1 image-landing-3"
+              src={logo3}
+              alt="image-3"
+            />
           </div>
         </div>
       </div>

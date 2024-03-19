@@ -131,6 +131,7 @@ app.post("/api/joblistings", async (req, res) => {
       officeDays,
       otherInfo,
       postedDate,
+      postedBy,
     } = req.body;
 
     const newJobListing = new JobListing({
@@ -158,6 +159,7 @@ app.post("/api/joblistings", async (req, res) => {
       officeDays,
       otherInfo,
       postedDate,
+      postedBy,
     });
 
     await newJobListing.save();
@@ -169,13 +171,51 @@ app.post("/api/joblistings", async (req, res) => {
   }
 });
 
-// endpoint to fetch job listings
+// // endpoint to fetch job listings
+// app.get("/api/joblistings", async (req, res) => {
+//   try {
+//     // Fetch job listings from MongoDB
+//     const jobListings = await JobListing.find();
+
+//     // Send job listings as response
+//     res.status(200).json(jobListings);
+//   } catch (error) {
+//     console.error("Error fetching job listings:", error);
+//     res.status(500).json({ message: "Internal server error" });
+//   }
+// });
+
+// app.get("/api/joblistings", async (req, res) => {
+//   try {
+//     const userEmail = req.headers.email; // Assuming user email is sent in request headers
+
+//     // Fetch job listings from MongoDB for the currently logged-in user
+//     const userJobs = await JobListing.find({ postedBy: userEmail });
+
+//     res.json(userJobs);
+//   } catch (error) {
+//     console.error("Error fetching job listings:", error);
+//     res.status(500).json({ message: "Internal server error" });
+//   }
+// });
+
 app.get("/api/joblistings", async (req, res) => {
   try {
-    // Fetch job listings from MongoDB
-    const jobListings = await JobListing.find();
+    const userEmail = req.headers.email; // Assuming user email is sent in request headers
 
-    // Send job listings as response
+    let jobListings;
+
+    if (userEmail) {
+      // Fetch job listings from MongoDB for the specified user
+      jobListings = await JobListing.find({ postedBy: userEmail });
+    } else {
+      // Fetch all job listings from MongoDB
+      jobListings = await JobListing.find();
+    }
+
+    // Sort job listings by postedDate in descending order
+    jobListings.sort((a, b) => new Date(b.postedDate) - new Date(a.postedDate));
+
     res.status(200).json(jobListings);
   } catch (error) {
     console.error("Error fetching job listings:", error);
@@ -240,8 +280,14 @@ app.put("/api/joblistings/:id", async (req, res) => {
 // Endpoint to create a new link post
 app.post("/api/linkposts", async (req, res) => {
   try {
-    const { jobTitle, companyName, applicationDeadline, link, postedDate } =
-      req.body;
+    const {
+      jobTitle,
+      companyName,
+      applicationDeadline,
+      link,
+      postedDate,
+      postedBy,
+    } = req.body;
 
     const newLinkPost = new LinkPost({
       jobTitle,
@@ -249,6 +295,7 @@ app.post("/api/linkposts", async (req, res) => {
       applicationDeadline,
       link,
       postedDate,
+      postedBy,
     });
 
     await newLinkPost.save();
@@ -261,15 +308,53 @@ app.post("/api/linkposts", async (req, res) => {
 });
 
 // Define endpoint to fetch link posts
+// app.get("/api/linkposts", async (req, res) => {
+//   try {
+//     // Fetch link posts from MongoDB
+//     const linkPosts = await LinkPost.find();
+
+//     // Sort link posts by postedDate in descending order
+//     linkPosts.sort((a, b) => new Date(b.postedDate) - new Date(a.postedDate));
+
+//     // Send link posts as response
+//     res.status(200).json(linkPosts);
+//   } catch (error) {
+//     console.error("Error fetching link posts:", error);
+//     res.status(500).json({ message: "Internal server error" });
+//   }
+// });
+
+// app.get("/api/linkposts", async (req, res) => {
+//   try {
+//     const userEmail = req.headers.email; // Assuming user email is sent in request headers
+
+//     // Fetch link posts from MongoDB for the currently logged-in user
+//     const userLinkPosts = await LinkPost.find({ postedBy: userEmail });
+
+//     res.json(userLinkPosts);
+//   } catch (error) {
+//     console.error("Error fetching link posts:", error);
+//     res.status(500).json({ message: "Internal server error" });
+//   }
+// });
+
 app.get("/api/linkposts", async (req, res) => {
   try {
-    // Fetch link posts from MongoDB
-    const linkPosts = await LinkPost.find();
+    const userEmail = req.headers.email; // Assuming user email is sent in request headers
+
+    let linkPosts;
+
+    if (userEmail) {
+      // Fetch link posts from MongoDB for the specified user
+      linkPosts = await LinkPost.find({ postedBy: userEmail });
+    } else {
+      // Fetch all link posts from MongoDB
+      linkPosts = await LinkPost.find();
+    }
 
     // Sort link posts by postedDate in descending order
     linkPosts.sort((a, b) => new Date(b.postedDate) - new Date(a.postedDate));
 
-    // Send link posts as response
     res.status(200).json(linkPosts);
   } catch (error) {
     console.error("Error fetching link posts:", error);

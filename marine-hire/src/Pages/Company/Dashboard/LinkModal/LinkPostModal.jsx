@@ -13,6 +13,10 @@ function LinkPostModal({ modalTwoOpen, closeModalTwo }) {
 
   const [postedDate, setPostedDate] = useState(new Date());
 
+  const userDataString = localStorage.getItem("user");
+  const userData = JSON.parse(userDataString);
+  const [postedBy, setPostedBy] = useState(userData?.email);
+
   useEffect(() => {
     const intervalId = setInterval(() => {
       setPostedDate(new Date());
@@ -34,7 +38,7 @@ function LinkPostModal({ modalTwoOpen, closeModalTwo }) {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ ...formData, postedDate }),
+          body: JSON.stringify({ ...formData, postedDate, postedBy }),
         });
 
         if (!response.ok) {
@@ -143,14 +147,14 @@ function LinkPostModal({ modalTwoOpen, closeModalTwo }) {
           <div className="modal-footer">
             <button
               type="button"
-              className="btn btn-secondary"
+              className="btn btn-outline-danger"
               onClick={closeModalTwo}
             >
               Close
             </button>
             <button
               type="button"
-              className="btn btn-success"
+              className="btn btn-outline-primary"
               onClick={handleSubmit}
             >
               Post Link

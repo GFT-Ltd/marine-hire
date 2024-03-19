@@ -38,6 +38,10 @@ function JobPostModal({ modalOpen, closeModal }) {
   const [otherInfo, setOtherInfo] = useState("");
   const [postedDate, setPostedDate] = useState(new Date());
 
+  const userDataString = localStorage.getItem("user");
+  const userData = JSON.parse(userDataString);
+  const [postedBy, setPostedBy] = useState(userData?.email);
+
   useEffect(() => {
     const intervalId = setInterval(() => {
       setPostedDate(new Date());
@@ -84,6 +88,7 @@ function JobPostModal({ modalOpen, closeModal }) {
             ...salaryBenefits,
             otherInfo,
             postedDate,
+            postedBy,
           }),
         });
 
@@ -438,14 +443,14 @@ function JobPostModal({ modalOpen, closeModal }) {
           <div className="modal-footer">
             <button
               type="button"
-              className="btn btn-secondary"
+              className="btn btn-outline-danger"
               onClick={closeModal}
             >
               Close
             </button>
             <button
               type="button"
-              className="btn btn-success"
+              className="btn btn-outline-primary"
               onClick={handleSubmit}
             >
               Post Job

@@ -73,7 +73,7 @@
   }
 
   .landing-section-two p {
-    padding-top: 8%;
+    padding-top: 18%;
   }
 }
 
@@ -146,4 +146,27 @@
 
 .button-4:-webkit-details-marker {
   display: none;
+}
+
+.div-ad-job-card {
+  margin-top: 3rem;
+}
+
+.image-landing-3 {
+  height: 30rem;
+  width: 33rem;
+}
+
+@media (max-width: 768px) {
+  .image-landing-3 {
+    height: 25rem;
+    width: 33rem;
+  }
+}
+
+@media (min-width: 1326px) {
+  .image-landing-3 {
+    height: 33rem;
+    width: 36rem;
+  }
 }
