@@ -88,3 +88,7 @@
     transform: translateX(-100%);
   }
 }
+
+.job-carousel {
+  animation: scroll 10s linear infinite; /* Adjust the duration (10s) as needed */
+}

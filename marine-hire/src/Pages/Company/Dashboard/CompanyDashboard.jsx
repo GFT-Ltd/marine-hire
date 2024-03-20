@@ -80,13 +80,14 @@ function CompanyDashboard() {
               <img className="job-image-1" src={image1} alt="image-1" />
             </div>
             <div className="col-lg-7 col-md-6 col-12 text-section">
+              <h3>Job Postings</h3>
               <div>
                 To share exciting job opportunities with the maritime community,
                 please fill out the form below. Provide comprehensive details
                 about your company and the available positions to attract the
                 right talent.
               </div>
-              <button className="button-4" onClick={openModal}>
+              <button className="button-4 pdf-upload-button" onClick={openModal}>
                 Fill the form
               </button>
             </div>

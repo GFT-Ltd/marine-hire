@@ -63,7 +63,7 @@ function Landing() {
               </p>
               <br />
               <button
-                className="button-4"
+                className="button-4 pdf-upload-button"
                 onClick={() => postAndApplyButtonClick()}
               >
                 Post Job

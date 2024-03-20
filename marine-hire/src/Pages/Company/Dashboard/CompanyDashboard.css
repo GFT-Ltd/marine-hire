@@ -26,6 +26,7 @@
   word-wrap: break-word;
 }
 
+
 .button-4:hover {
   background-color: #f3f4f6;
   text-decoration: none;
@@ -62,13 +63,19 @@
   text-align: center;
   justify-content: space-around;
   height: 50%;
-  background: rgb(255, 214, 164);
+  /* background: rgb(255, 214, 164);
   background: linear-gradient(
     180deg,
     rgba(255, 214, 164, 1) 0%,
     rgba(255, 219, 175, 1) 35%,
     rgba(255, 243, 218, 1) 100%
-  );
+  ); */
+
+  background: white;
+  /* border: 1rem solid #ffaf46;
+  border-top: transparent;
+  border-left: transparent;
+  border-right: transparent; */
   margin-bottom: 3rem;
   padding: 5%;
   font-size: 1.2rem;
@@ -84,14 +91,30 @@
   font-size: 1.2rem;
 }
 
+
+
+
+
 .job-post-section .text-section {
+  display: flex;
+  text-align: left;
+  justify-content: space-around;
+  flex-direction: column;
+  margin-top: -5rem;
+  padding: 5%;
+  color: #f99004;
+}
+
+/* .job-post-section .text-section #h4 {
   display: flex;
   text-align: left;
   justify-content: space-around;
   flex-direction: column;
   margin-top: 1rem;
   padding: 5%;
-}
+  color: #000000;
+} */
+
 
 .job-post-section-two .text-section {
   display: flex;
@@ -158,6 +181,16 @@
     height: 20rem;
     width: 22rem;
   }
+  .job-post-section .text-section {
+    display: flex;
+    text-align: left;
+    justify-content: space-around;
+    flex-direction: column;
+    margin-top: 1rem;
+    padding: 5%;
+    color: #f99004;
+  }
+  
 }
 
 .company-dashboard {
@@ -176,13 +209,11 @@
   box-sizing: border-box;
   width: 60rem;
   height: 20rem;
-  background: rgb(255, 232, 182);
-  background: linear-gradient(
-    90deg,
-    rgba(255, 232, 182, 1) 0%,
-    rgba(255, 231, 186, 1) 35%,
-    rgba(255, 250, 196, 1) 100%
-  );
+  background: rgb(255,201,120);
+  background: linear-gradient(22deg, 
+  rgba(255,201,120,1) 0%, 
+  rgba(255,196,127,1) 23%, 
+  rgba(254,166,49,1) 77%);
   border: 1px solid #ff8903;
   box-shadow: 12px 17px 51px rgba(0, 0, 0, 0.22);
   backdrop-filter: blur(6px);
