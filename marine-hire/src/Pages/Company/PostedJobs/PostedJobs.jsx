@@ -3,10 +3,13 @@ import NavbarCompany from "../NavbarCompany/NavbarCompany";
 import "./PostedJobs.css";
 import JobCard from "./JobCard/JobCard";
 import JobLinkCard from "./JobLinkCard/JobLinkCard";
+import PdfCard from "./PdfCard/PdfCard";
+import axios from "axios";
 
 function PostedJobs() {
   const [jobListings, setJobListings] = useState([]);
   const [linkPosts, setLinkPosts] = useState([]);
+  const [pdfPosts, setPdfPosts] = useState([]);
 
   // Fetch job listings from backend when component mounts
   useEffect(() => {
@@ -16,6 +19,10 @@ function PostedJobs() {
   // Fetch link posts from backend when component mounts
   useEffect(() => {
     fetchLinkPosts();
+  }, []);
+
+  useEffect(() => {
+    fetchPdfPosts();
   }, []);
 
   // const fetchJobListings = async () => {
@@ -94,6 +101,31 @@ function PostedJobs() {
     }
   };
 
+  const fetchPdfPosts = async () => {
+    try {
+      const userDataString = localStorage.getItem("user");
+      const userData = JSON.parse(userDataString);
+      const email = userData?.email;
+      console.log("current user : ", email);
+
+      if (!email) {
+        console.error("User email not found in local storage");
+        return;
+      }
+
+      const response = await fetch("http://localhost:5000/api/upload-pdf", {
+        headers: {
+          email: email,
+        },
+      });
+      const data = await response.json();
+
+      setPdfPosts(data);
+    } catch (error) {
+      console.error("Error fetching PDF posts:", error);
+    }
+  };
+
   return (
     <div className="posted-jobs">
       <NavbarCompany />
@@ -116,6 +148,15 @@ function PostedJobs() {
               className="col-lg-4 col-md-6 col-12 job-card-item"
             >
               <JobLinkCard linkPost={linkPost} />
+            </div>
+          ))}
+
+          {pdfPosts.map((pdfPost) => (
+            <div
+              key={pdfPost._id}
+              className="col-lg-4 col-md-6 col-12 job-card-item"
+            >
+              <PdfCard pdfPosts={pdfPosts} />
             </div>
           ))}
         </div>

@@ -6,10 +6,12 @@ import JobPostModal from "./JobModal/JobPostModal";
 import image1 from "../../../Assets/job-image-1.png";
 import LinkPostModal from "./LinkModal/LinkPostModal";
 import { useNavigate } from "react-router-dom";
+import PdfModal from "./PdfModal/PdfModal";
 
 function CompanyDashboard() {
   const [modalOpen, setModalOpen] = useState(false);
   const [modalTwoOpen, setModalTwoOpen] = useState(false);
+  const [modalThreeOpen, setModalThreeOpen] = useState(false);
   const [isPageBlurred, setIsPageBlurred] = useState(false);
 
   const openModal = () => {
@@ -29,6 +31,16 @@ function CompanyDashboard() {
 
   const closeModalTwo = () => {
     setModalTwoOpen(false);
+    setIsPageBlurred(false);
+  };
+
+  const openModalThree = () => {
+    setModalThreeOpen(true);
+    setIsPageBlurred(true);
+  };
+
+  const closeModalThree = () => {
+    setModalThreeOpen(false);
     setIsPageBlurred(false);
   };
 
@@ -59,6 +71,20 @@ function CompanyDashboard() {
       document.removeEventListener("keydown", handleKeyDown);
     };
   }, [modalTwoOpen]);
+
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.key === "Escape" && modalThreeOpen) {
+        closeModalThree();
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [modalThreeOpen]);
 
   const navigate = useNavigate();
 
@@ -113,7 +139,7 @@ function CompanyDashboard() {
               </div>
               <button
                 className="button-4 pdf-upload-button"
-                onClick={goToPdfUpload}
+                onClick={openModalThree}
               >
                 Upload PDF
               </button>
@@ -139,6 +165,10 @@ function CompanyDashboard() {
       <LinkPostModal
         modalTwoOpen={modalTwoOpen}
         closeModalTwo={closeModalTwo}
+      />
+      <PdfModal
+        modalThreeOpen={modalThreeOpen}
+        closeModalThree={closeModalThree}
       />
     </div>
   );

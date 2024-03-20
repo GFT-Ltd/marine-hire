@@ -1,0 +1,17 @@
+.upload-pdf-section {
+  text-align: center;
+}
+
+.pdf-input {
+  /* margin: 5%; */
+  width: 100%;
+  margin-bottom: 2rem;
+}
+
+.upload-input-div {
+  border: 2px dashed #f99004;
+  border-radius: 1rem;
+  padding: 4rem;
+  margin: 20px auto;
+  width: 40rem;
+}

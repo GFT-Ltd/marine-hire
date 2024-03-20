@@ -6,9 +6,12 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const { generateToken, comparePasswords } = require("./auth");
 require("dotenv").config();
+const multer = require("multer");
+const { PDFDocument } = require("pdf-lib");
 const JobListing = require("./Models/JobListing.js");
 const LinkPost = require("./Models/LinkPost.js");
 const pdfParse = require("pdf-parse");
+const PdfPost = require("./Models/PdfPost.js");
 
 const app = express();
 
@@ -419,6 +422,213 @@ app.post("/parse-pdf", async (req, res) => {
     res.send({ extractedData: data.text });
   } catch (error) {
     console.error("Error parsing PDF:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
+
+app.post("/api/upload-pdf", upload.single("pdf"), async (req, res) => {
+  try {
+    if (!req.file) {
+      return res.status(400).send("No file uploaded");
+    }
+
+    const { jobTitle, deadline, jobLocation, postedDate, postedBy } = req.body;
+    const pdfBytes = req.file.buffer;
+
+    const pdfDoc = await PDFDocument.load(pdfBytes);
+    const compressedPdfBytes = await pdfDoc.save();
+
+    // Convert Uint8Array to Buffer
+    const buffer = Buffer.from(compressedPdfBytes);
+
+    const pdfPost = new PdfPost({
+      jobTitle,
+      deadline,
+      jobLocation,
+      pdfFile: buffer,
+      postedDate,
+      postedBy,
+    });
+
+    await pdfPost.save();
+
+    res.status(200).send("PDF uploaded successfully");
+  } catch (error) {
+    console.error("Error uploading PDF:", error);
+    res.status(500).send("Error uploading PDF");
+  }
+});
+
+// app.get("/api/upload-pdf", async (req, res) => {
+//   try {
+//     const userEmail = req.headers.email; // Assuming user email is sent in request headers
+//     console.log("email for pdf is : ", userEmail);
+//     let pdfPosts;
+
+//     if (userEmail) {
+//       // Fetch PDF posts from MongoDB for the specified user
+//       pdfPosts = await PdfPost.find({ postedBy: userEmail });
+//     } else {
+//       // Fetch all PDF posts from MongoDB
+//       pdfPosts = await PdfPost.find();
+//     }
+
+//     // Sort PDF posts by postedDate in descending order
+//     pdfPosts.sort((a, b) => new Date(b.postedDate) - new Date(a.postedDate));
+
+//     // Decompress PDFs
+//     const decompressedPdfPosts = await Promise.all(
+//       pdfPosts.map(async (pdfPost) => {
+//         try {
+//           if (!pdfPost.pdfFile || !pdfPost.pdfFile.buffer) {
+//             throw new Error("Invalid PDF data");
+//           }
+
+//           const compressedPdfBytes = pdfPost.pdfFile.buffer;
+//           const pdfDoc = await PDFDocument.PDFDocument.load(compressedPdfBytes);
+//           const decompressedPdfBytes = await pdfDoc.save();
+
+//           // Convert Uint8Array to Buffer
+//           const buffer = Buffer.from(decompressedPdfBytes);
+
+//           return {
+//             ...pdfPost.toObject(),
+//             pdfFile: buffer,
+//           };
+//         } catch (error) {
+//           console.error("Error decompressing PDF:", error);
+//           return null; // Return null for invalid PDF data
+//         }
+//       })
+//     );
+
+//     // Filter out null values from decompressedPdfPosts
+//     const validDecompressedPdfPosts = decompressedPdfPosts.filter(
+//       (pdfPost) => pdfPost !== null
+//     );
+
+//     res.status(200).json(validDecompressedPdfPosts);
+//   } catch (error) {
+//     console.error("Error fetching PDF posts:", error);
+//     res.status(500).json({ message: "Internal server error" });
+//   }
+// });
+
+app.get("/api/upload-pdf", async (req, res) => {
+  try {
+    const userEmail = req.headers.email;
+
+    let pdfPosts;
+
+    if (userEmail) {
+      // Fetch PDF posts from MongoDB for the specified user
+      pdfPosts = await PdfPost.find({ postedBy: userEmail });
+    } else {
+      // Fetch all PDF posts from MongoDB
+      pdfPosts = await PdfPost.find();
+    }
+
+    // Sort PDF posts by postedDate in descending order
+    pdfPosts.sort((a, b) => new Date(b.postedDate) - new Date(a.postedDate));
+
+    // Decompress PDFs and filter out invalid PDF data
+    const decompressedPdfPosts = await Promise.all(
+      pdfPosts.map(async (pdfPost) => {
+        try {
+          if (!pdfPost.pdfFile || !pdfPost.pdfFile.buffer) {
+            throw new Error("Invalid PDF data");
+          }
+
+          const compressedPdfBytes = pdfPost.pdfFile.buffer;
+          const pdfDoc = await PDFDocument.load(compressedPdfBytes); // Load the PDF document
+          const decompressedPdfBytes = await pdfDoc.save();
+
+          // Convert Uint8Array to Buffer
+          const buffer = Buffer.from(decompressedPdfBytes);
+
+          return {
+            ...pdfPost.toObject(),
+            pdfFile: buffer,
+          };
+        } catch (error) {
+          console.error("Error decompressing PDF:", error);
+          return null; // Return null for invalid PDF data
+        }
+      })
+    );
+
+    // Filter out null values from decompressedPdfPosts
+    const validDecompressedPdfPosts = decompressedPdfPosts.filter(
+      (pdfPost) => pdfPost !== null
+    );
+
+    res.status(200).json(validDecompressedPdfPosts);
+  } catch (error) {
+    console.error("Error fetching PDF posts:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+// Backend API route to fetch PDF details by ID
+app.get("/api/upload-pdf/:id", async (req, res) => {
+  try {
+    const pdfId = req.params.id;
+
+    // Fetch PDF post from MongoDB by ID
+    const pdfPost = await PdfPost.findById(pdfId);
+
+    if (!pdfPost) {
+      return res.status(404).json({ message: "PDF not found" });
+    }
+
+    res.status(200).json([pdfPost]); // Wrap the result in an array to match the response structure of /api/upload-pdf
+  } catch (error) {
+    console.error("Error fetching PDF details:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+// Backend API route to delete PDF post by ID
+app.delete("/api/upload-pdf/:id", async (req, res) => {
+  try {
+    const pdfId = req.params.id;
+
+    // Find the PDF post by ID and delete it
+    const deletedPdfPost = await PdfPost.findByIdAndDelete(pdfId);
+
+    if (!deletedPdfPost) {
+      return res.status(404).json({ message: "PDF not found" });
+    }
+
+    res.status(200).json({ message: "PDF deleted successfully" });
+  } catch (error) {
+    console.error("Error deleting PDF:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+app.put("/api/upload-pdf/:id", async (req, res) => {
+  try {
+    const pdfId = req.params.id;
+    const { jobTitle, deadline, jobLocation } = req.body;
+
+    // Find the PDF post by ID and update its details
+    const updatedPdfPost = await PdfPost.findByIdAndUpdate(
+      pdfId,
+      { jobTitle, deadline, jobLocation },
+      { new: true }
+    );
+
+    if (!updatedPdfPost) {
+      return res.status(404).json({ message: "PDF not found" });
+    }
+
+    res.status(200).json(updatedPdfPost);
+  } catch (error) {
+    console.error("Error updating PDF details:", error);
     res.status(500).json({ message: "Internal server error" });
   }
 });

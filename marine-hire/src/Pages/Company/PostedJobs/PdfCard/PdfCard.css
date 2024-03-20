@@ -1,0 +1,38 @@
+.pdf-card {
+  box-sizing: border-box;
+  width: 20rem;
+  height: 15rem;
+  background: rgb(254, 169, 64);
+  background: linear-gradient(
+    144deg,
+    rgba(254, 169, 64, 1) 0%,
+    rgba(255, 196, 106, 1) 35%,
+    rgba(255, 230, 155, 1) 100%
+  );
+  border: 1px solid rgb(255, 159, 49);
+  border: 1px solid rgb(255, 159, 49);
+  box-shadow: 12px 17px 51px rgba(0, 0, 0, 0.22);
+  backdrop-filter: blur(6px);
+  border-radius: 17px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.5s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  color: black;
+}
+
+.pdf-card:hover {
+  border: 1px solid black;
+  transform: scale(1.05);
+}
+
+.pdf-card-content p {
+  margin-top: 4rem;
+}
+
+.link-job-details-page {
+  text-decoration: none;
+}

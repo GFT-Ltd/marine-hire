@@ -1,0 +1,43 @@
+.pdf-details-section {
+  padding: 2%;
+}
+
+.details-container {
+  background: rgb(255, 210, 138);
+  background: linear-gradient(
+    142deg,
+    rgba(255, 210, 138, 1) 0%,
+    rgba(248, 219, 170, 1) 46%,
+    rgba(255, 237, 210, 1) 100%
+  );
+}
+
+.visible-pdf-section {
+  background-color: #ffffff44;
+  border-radius: 0.4rem;
+}
+
+.detail-field {
+  font-size: 1.2rem;
+}
+
+.details-container {
+  background: rgb(255, 210, 138);
+  background: linear-gradient(
+    142deg,
+    rgba(255, 210, 138, 1) 0%,
+    rgba(248, 219, 170, 1) 46%,
+    rgba(255, 237, 210, 1) 100%
+  );
+  border-width: 2px;
+  border-color: #ffc06d;
+}
+
+.download-button-div {
+  display: flex;
+}
+
+.download-button {
+  cursor: pointer;
+  margin-left: 2%;
+}
