@@ -5,19 +5,31 @@
 }
 
 .landing-section-one {
-  background-color: #ffd6a4;
+  /* background-color: #ffd6a4; */
   height: 27rem;
+  background: rgb(255,201,120);
+  background: linear-gradient(22deg,
+   rgba(255,201,120,1) 0%,
+    rgba(255,196,127,1) 23%,
+     rgba(255,175,68,1) 77%);
 }
 
 .landing-section-two {
-  background-color: #fde9df;
+  background-color: #ffffff;
+  /* background: rgb(255,227,185);
+  background: linear-gradient(321deg, rgba(255,227,185,1) 0%, rgba(255,196,127,1) 28%, rgba(255,175,68,1) 77%);  */
   height: 27rem;
   margin-top: 3rem;
   margin-bottom: 3rem;
 }
 
 .landing-section-three {
-  background-color: #ffd6a4;
+  /* background-color: #ffd6a4; */
+  background: rgb(255,227,185);
+  background: linear-gradient(321deg,
+   rgba(255,227,185,1) 0%,
+    rgba(255,196,127,1) 28%,
+     rgba(255,175,68,1) 77%);
   height: 27rem;
   margin-bottom: 3rem;
 }
@@ -56,18 +68,28 @@
     width: 26rem;
   }
   .landing-section-one {
-    background-color: #ffd6a4;
+    /* background-color: #ffd6a4; */
+    background: rgb(255,201,120);
+    background: linear-gradient(22deg,
+     rgba(255,201,120,1) 0%,
+      rgba(255,196,127,1) 23%,
+       rgba(255,175,68,1) 77%);
     height: 35rem;
     padding-top: 2%;
   }
   .landing-section-two {
-    background-color: #fde9df;
+    background-color: #ffffff;
     height: 35rem;
     padding-top: 2%;
   }
 
   .landing-section-three {
-    background-color: #ffd6a4;
+    /* background-color: #ffd6a4; */
+    background: rgb(255,227,185);
+  background: linear-gradient(321deg,
+   rgba(255,227,185,1) 0%,
+    rgba(255,196,127,1) 28%,
+     rgba(255,175,68,1) 77%);
     height: 35rem;
     padding-top: 2%;
   }
