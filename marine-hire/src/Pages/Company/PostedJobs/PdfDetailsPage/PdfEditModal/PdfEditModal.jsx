@@ -61,6 +61,7 @@ function PdfEditModal({ pdfDetails, onCancel, onUpdate }) {
               />
             </div>
           </div>
+          <p><strong>Note - </strong>To modify the PDF, reupload it and delete the current version.</p>
           <button type="submit" className="btn btn-primary">
             Update
           </button>
