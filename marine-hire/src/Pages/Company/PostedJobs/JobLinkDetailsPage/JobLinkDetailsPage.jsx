@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import NavbarCompany from "../../NavbarCompany/NavbarCompany";
 import "./JobLinkDetailsPage.css";
 import JobLinkEditModal from "./JobLinkEditModal/JobLinkEditModal";
@@ -191,7 +191,14 @@ function JobLinkDetailsPage() {
                 <div className="col-lg-6 col-md-6 col-12 detail-field">
                   <br />
                   <strong>URL - </strong>
-                  {linkPost.link}
+                  <Link
+                    to={linkPost.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="link-external"
+                  >
+                    Visit Website
+                  </Link>
                 </div>
               </div>
               <br />

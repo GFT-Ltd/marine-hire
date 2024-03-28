@@ -92,3 +92,7 @@
   border-width: 2px;
   border-color: #ffc06d;
 }
+
+.link-external {
+  text-decoration: none;
+}
